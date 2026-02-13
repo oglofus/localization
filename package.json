@@ -1,0 +1,49 @@
+{
+  "name": "@oglofus/localization",
+  "version": "0.0.1",
+  "description": "A lightweight, strongly typed localization data library for countries, currencies, languages, and timezones.",
+  "keywords": [
+    "localization",
+    "countries",
+    "languages",
+    "timezones",
+    "npm"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "homepage": "https://github.com/oglofus/localization#readme",
+  "bugs": {
+    "url": "https://github.com/oglofus/localization/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oglofus/localization.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "ISC",
+  "author": "oglofus (https://oglofus.com/)",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && node --test",
+    "prepublishOnly": "npm run build"
+  },
+  "private": false,
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}
