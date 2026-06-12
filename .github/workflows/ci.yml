@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - run: npm ci
+
+      - run: npm test
+
+  smoke:
+    name: Smoke ${{ matrix.runtime }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        runtime: [node, bun, deno]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "npm"
+
+      - uses: oven-sh/setup-bun@v2
+        if: matrix.runtime == 'bun'
+
+      - uses: denoland/setup-deno@v2
+        if: matrix.runtime == 'deno'
+        with:
+          deno-version: v2.x
+
+      - run: npm ci
+
+      - run: npm run build
+
+      # Let the smoke test resolve the package by name, like a consumer would.
+      - name: Link package into node_modules
+        run: |
+          mkdir -p node_modules/@oglofus
+          ln -sfn "$PWD" node_modules/@oglofus/localization
+
+      - name: Run smoke test
+        run: |
+          case "${{ matrix.runtime }}" in
+            node) node scripts/smoke.mjs ;;
+            bun) bun scripts/smoke.mjs ;;
+            deno) deno run --allow-read scripts/smoke.mjs ;;
+          esac

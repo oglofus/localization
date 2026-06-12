@@ -1,13 +1,17 @@
 {
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": "src",
     "incremental": true,
-    "module": "esnext",
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "target": "esnext",
+    "strict": true,
     "declaration": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/index.ts"],
+  "include": ["src/index.ts"]
 }
