@@ -731,7 +731,7 @@ export const countries: readonly {
     currencies: ["EUR"],
     emoji: "🇨🇾",
     ioc: "CYP",
-    languages: ["ell", "tur", "rus", "heb"],
+    languages: ["ell", "tur", "rus", "heb", "ukr"],
     name: "Cyprus",
     status: "assigned",
     timezones: ["Asia/Famagusta", "Asia/Nicosia"],

@@ -71,8 +71,8 @@ const CONTINENT_OVERRIDES = {
  * These overrides correct or supplement its language lists.
  */
 const LANGUAGE_OVERRIDES = {
-  // Include Russian and Hebrew as spoken languages, not official languages.
-  CY: ["ell", "tur", "rus", "heb"],
+  // Include Russian, Hebrew, and Ukrainian as spoken languages, not official languages.
+  CY: ["ell", "tur", "rus", "heb", "ukr"],
   // country-data lists the invalid code "mot"; Montenegrin is "cnr"
   // (ISO 639-2 assigned 2017). Other official languages per the constitution.
   ME: ["cnr", "srp", "bos", "sqi", "hrv"],

@@ -1,6 +1,6 @@
 {
   "name": "@oglofus/localization",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A lightweight, strongly typed localization data library for countries, currencies, languages, continents, and timezones.",
   "keywords": [
     "localization",

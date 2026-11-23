@@ -96,6 +96,7 @@ test("language-to-countries map inverts country language lists", () => {
   }
   assert.ok(language_to_countries_map.rus.includes(countries_alpha2_map.CY));
   assert.ok(language_to_countries_map.heb.includes(countries_alpha2_map.CY));
+  assert.ok(language_to_countries_map.ukr.includes(countries_alpha2_map.CY));
 });
 
 test("lookup maps reference the same objects as their datasets", () => {
@@ -252,7 +253,9 @@ test("dataset spot checks", () => {
   assert.equal(gr.alpha3, "GRC");
   assert.equal(gr.ioc, "GRE");
   assert.deepEqual(gr.timezones, ["Europe/Athens"]);
-  assert.deepEqual(countries_alpha2_map.CY.languages, ["ell", "tur", "rus", "heb"]);
+  assert.deepEqual(countries_alpha2_map.CY.languages, [
+    "ell", "tur", "rus", "heb", "ukr",
+  ]);
   const ua = countries.find((c) => c.alpha2 === "UA");
   assert.ok(ua.timezones.includes("Europe/Kyiv"));
   assert.ok(!timezones_identifiers.includes("Europe/Kiev"));
