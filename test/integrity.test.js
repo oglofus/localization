@@ -16,6 +16,7 @@ import {
   language_alpha2_values,
   language_alpha3_to_alpha2,
   language_alpha3_values,
+  language_to_countries_map,
   languages,
   languages_alpha2_map,
   languages_alpha3_map,
@@ -81,6 +82,20 @@ test("country maps mirror the countries dataset", () => {
   }
   // deprecated alias stays identical to the alpha-2 map
   assert.equal(countries_map, countries_alpha2_map);
+});
+
+test("language-to-countries map inverts country language lists", () => {
+  assert.deepEqual(Object.keys(language_to_countries_map), [
+    ...language_alpha3_values,
+  ]);
+  for (const code of language_alpha3_values) {
+    const expected = countries.filter((country) => country.languages.includes(code));
+    const actual = language_to_countries_map[code];
+    assert.equal(actual.length, expected.length, code);
+    expected.forEach((country, i) => assert.equal(actual[i], country, code));
+  }
+  assert.ok(language_to_countries_map.rus.includes(countries_alpha2_map.CY));
+  assert.ok(language_to_countries_map.heb.includes(countries_alpha2_map.CY));
 });
 
 test("lookup maps reference the same objects as their datasets", () => {
@@ -237,6 +252,7 @@ test("dataset spot checks", () => {
   assert.equal(gr.alpha3, "GRC");
   assert.equal(gr.ioc, "GRE");
   assert.deepEqual(gr.timezones, ["Europe/Athens"]);
+  assert.deepEqual(countries_alpha2_map.CY.languages, ["ell", "tur", "rus", "heb"]);
   const ua = countries.find((c) => c.alpha2 === "UA");
   assert.ok(ua.timezones.includes("Europe/Kyiv"));
   assert.ok(!timezones_identifiers.includes("Europe/Kiev"));

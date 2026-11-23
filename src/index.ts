@@ -7,6 +7,7 @@ export * from "./countries_map.js";
 export * from "./currencies.js";
 export * from "./currencies_codes.js";
 export * from "./currencies_map.js";
+export * from "./language_to_countries_map.js";
 export * from "./languages.js";
 export * from "./languages_alpha2.js";
 export * from "./languages_alpha2_to_alpha3.js";

@@ -68,9 +68,11 @@ const CONTINENT_OVERRIDES = {
 /**
  * country-data is the source for calling codes, IOC codes, and spoken
  * languages only (its currency data is stale, so currencies come from CLDR).
- * These overrides patch the few entries where it is wrong or empty.
+ * These overrides correct or supplement its language lists.
  */
 const LANGUAGE_OVERRIDES = {
+  // Include Russian and Hebrew as spoken languages, not official languages.
+  CY: ["ell", "tur", "rus", "heb"],
   // country-data lists the invalid code "mot"; Montenegrin is "cnr"
   // (ISO 639-2 assigned 2017). Other official languages per the constitution.
   ME: ["cnr", "srp", "bos", "sqi", "hrv"],
@@ -527,6 +529,28 @@ export const languages_alpha3_map: Record<LanguageAlpha3, Language> =
   /* @__PURE__ */ Object.fromEntries(
     languages.map((language) => [language.alpha3, language])
   ) as Record<LanguageAlpha3, Language>;
+`,
+);
+
+await emit(
+  "language_to_countries_map.ts",
+  `import { countries, type Country } from "./countries.js";
+import { language_alpha3_values, type LanguageAlpha3 } from "./languages_alpha3.js";
+
+/** Countries that list each ISO 639-2 language, in dataset order. */
+export const language_to_countries_map: Readonly<
+  Record<LanguageAlpha3, readonly Country[]>
+> = /* @__PURE__ */ (() => {
+  const byLanguage = Object.fromEntries<Country[]>(
+    language_alpha3_values.map((code) => [code, []])
+  ) as Record<LanguageAlpha3, Country[]>;
+  for (const country of countries) {
+    for (const code of new Set(country.languages)) {
+      byLanguage[code].push(country);
+    }
+  }
+  return byLanguage;
+})();
 `,
 );
 

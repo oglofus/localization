@@ -38,6 +38,7 @@ import {
   currency_codes,
   language_alpha2_values,
   language_alpha3_values,
+  language_to_countries_map,
   language_alpha2_to_alpha3,
   language_alpha3_to_alpha2,
   timezones_identifiers,
@@ -48,6 +49,7 @@ const us = countries_alpha2_map.US; // full Country object
 const usd = currencies_map.USD;
 const french = languages_alpha2_map.fr;
 const parisTz = timezones_map["Europe/Paris"];
+const russianSpeakingCountries = language_to_countries_map.rus; // includes Cyprus
 
 const usEmoji = countries_alpha2_map.US.emoji; // "🇺🇸"
 const alpha3 = language_alpha2_to_alpha3.en; // "eng"
@@ -99,6 +101,7 @@ Each code list is exported as a readonly array plus a union type.
 
 - `language_alpha2_to_alpha3`: map from alpha-2 to alpha-3 language codes.
 - `language_alpha3_to_alpha2`: map from alpha-3 to alpha-2 language codes.
+- `language_to_countries_map`: maps each alpha-3 language code to the `Country` objects that list it in their `languages` field, in dataset order. A known language with no matching countries maps to an empty array. Use `language_alpha2_to_alpha3` if you have an alpha-2 code.
 
 ## ESM + TypeScript
 
